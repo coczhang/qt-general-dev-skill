@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt QSS Style"
+  short_description: "Qt QSS themes and control states"
+  default_prompt: "Use $qt-qss-style to create maintainable QSS for a Qt Widgets app."

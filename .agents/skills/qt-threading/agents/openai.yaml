@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt Threading"
+  short_description: "Qt threading and async safety"
+  default_prompt: "Use $qt-threading to review a QThread workflow for UI and lifetime safety."

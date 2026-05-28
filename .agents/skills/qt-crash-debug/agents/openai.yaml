@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt Crash Debug"
+  short_description: "Qt crash and dump analysis"
+  default_prompt: "Use $qt-crash-debug to analyze this Qt crash log and rank likely causes."

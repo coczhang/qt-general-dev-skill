@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt Video Render"
+  short_description: "Qt image and video rendering"
+  default_prompt: "Use $qt-video-render to review a Qt image/video rendering pipeline."

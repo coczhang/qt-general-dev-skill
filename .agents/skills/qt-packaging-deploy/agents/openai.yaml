@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt Packaging Deploy"
+  short_description: "Qt packaging and clean deploys"
+  default_prompt: "Use $qt-packaging-deploy to package a Qt app for a clean machine."

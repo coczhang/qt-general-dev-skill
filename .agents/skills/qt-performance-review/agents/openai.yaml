@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt Performance Review"
+  short_description: "Qt UI and runtime performance"
+  default_prompt: "Use $qt-performance-review to diagnose a Qt UI freeze or high CPU issue."

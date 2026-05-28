@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt UI Designer"
+  short_description: "Qt QWidget UI layout and review"
+  default_prompt: "Use $qt-ui-designer to design a QWidget interface with QLayout and QSS."

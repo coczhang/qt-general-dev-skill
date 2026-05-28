@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt General Dev"
+  short_description: "Qt/C++ project guidance and routing"
+  default_prompt: "Use $qt-general-dev to design or review a Qt/C++ desktop application."

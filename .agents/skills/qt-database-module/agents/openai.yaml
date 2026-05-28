@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt Database Module"
+  short_description: "Qt SQL module and thread safety"
+  default_prompt: "Use $qt-database-module to design a threaded SQLite module for Qt."

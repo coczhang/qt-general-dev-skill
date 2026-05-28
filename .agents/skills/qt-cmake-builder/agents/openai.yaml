@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt CMake Builder"
+  short_description: "Qt CMake builds and dependencies"
+  default_prompt: "Use $qt-cmake-builder to fix or create a Qt CMake build."

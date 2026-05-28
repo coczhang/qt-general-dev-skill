@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qt Network Module"
+  short_description: "Qt networking module guidance"
+  default_prompt: "Use $qt-network-module to design an async Qt network service."
