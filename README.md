@@ -82,12 +82,25 @@
 
 指定项目使用适合把这套 Qt Skill 固定在某一个项目里，便于团队共享同一套 Qt 工程规则。
 
-把本仓库的 `.agents/skills` 复制到目标项目的 `.agents/skills`：
+在本仓库根目录执行以下命令，把 `.agents/skills` 下的所有 Skill 一次性复制到目标项目。`$targetProject` 指目标 Qt 项目的根目录，不是 `.agents` 或 `.agents/skills` 目录。
 
 ```powershell
 $targetProject = "D:\path\to\your-qt-project"
-New-Item -ItemType Directory -Force -Path "$targetProject\.agents\skills" | Out-Null
-Copy-Item -LiteralPath ".\.agents\skills\*" -Destination "$targetProject\.agents\skills" -Recurse -Force
+$sourceSkills = Join-Path (Get-Location) ".agents\skills"
+$targetSkills = Join-Path $targetProject ".agents\skills"
+
+New-Item -ItemType Directory -Force -Path $targetSkills | Out-Null
+Get-ChildItem -Directory -LiteralPath $sourceSkills | Copy-Item -Destination $targetSkills -Recurse -Force
+```
+
+macOS/Linux：
+
+```bash
+source_skills="$(pwd)/.agents/skills"
+target_project="/path/to/your-qt-project"
+
+mkdir -p "$target_project/.agents/skills"
+cp -R "$source_skills"/* "$target_project/.agents/skills/"
 ```
 
 复制完成后，目标项目结构应类似：
@@ -106,21 +119,27 @@ your-qt-project/
 
 ## 全局使用
 
-全局使用适合让所有 Codex 项目都能默认使用这套 Qt Skill。把 `.agents/skills` 复制到用户级 Codex skills 目录即可。
+全局使用适合让所有 Codex 项目都能默认使用这套 Qt Skill。全局目录是用户级 Codex skills 目录，通常是 `$CODEX_HOME/skills`；如果没有设置 `CODEX_HOME`，则使用 `~/.codex/skills`。
 
 Windows PowerShell：
 
 ```powershell
-$globalSkills = "$env:USERPROFILE\.codex\skills"
+$sourceSkills = Join-Path (Get-Location) ".agents\skills"
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
+$globalSkills = Join-Path $codexHome "skills"
+
 New-Item -ItemType Directory -Force -Path $globalSkills | Out-Null
-Copy-Item -LiteralPath ".\.agents\skills\*" -Destination $globalSkills -Recurse -Force
+Get-ChildItem -Directory -LiteralPath $sourceSkills | Copy-Item -Destination $globalSkills -Recurse -Force
 ```
 
 macOS/Linux：
 
 ```bash
-mkdir -p "$HOME/.codex/skills"
-cp -R .agents/skills/* "$HOME/.codex/skills/"
+source_skills="$(pwd)/.agents/skills"
+global_skills="${CODEX_HOME:-$HOME/.codex}/skills"
+
+mkdir -p "$global_skills"
+cp -R "$source_skills"/* "$global_skills/"
 ```
 
 复制完成后，用户级目录结构应类似：
@@ -167,7 +186,7 @@ python .agents\skills\qt-general-dev\scripts\qt_project_scout.py . --json
 ## 推荐工作流
 
 1. 以 `.agents/skills` 作为当前可用 Skill 的准入目录。
-2. 修改或新增 Skill 后，先确认 `.agents/skills/<skill-name>/SKILL.md`、`agents/openai.yaml`、`references/` 和 `scripts/` 是否齐全。
+2. 修改或新增 Skill 后，先确认 `.agents/skills/<skill-name>/SKILL.md` 和 `agents/openai.yaml` 齐全；如该 Skill 需要，再确认 `references/` 和 `scripts/` 齐全。
 3. 在当前项目中直接用 `qt-general-dev` 或专项 Skill 处理真实 Qt/C++ 任务。
 4. 需要给其他项目使用时，把 `.agents/skills` 复制到目标项目的 `.agents/skills`。
 5. 需要所有项目默认可用时，把 `.agents/skills` 复制到用户级 `.codex/skills`。
